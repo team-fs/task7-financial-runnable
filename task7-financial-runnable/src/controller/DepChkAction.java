@@ -2,6 +2,8 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +15,7 @@ import databeans.CustomerBean;
 import databeans.TransactionBean;
 import model.Model;
 import model.TransactionDAO;
+import formbeans.DepositCheckForm;
 import formbeans.RequestCheckForm;
 
 public class DepChkAction extends Action {
@@ -34,16 +37,16 @@ public class DepChkAction extends Action {
 		try {
 			
 			CustomerBean customer = (CustomerBean) request.getSession(false).getAttribute("customer");
-			RequestCheckForm form = formBeanFactory.create(request);
+			DepositCheckForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			
 			errors.addAll(form.getValidationErrors());
 	        if (errors.size() > 0) return "error.jsp";
 			
 			TransactionBean transaction = new TransactionBean();
-			transaction.setCusId(customer.getUserId());
-			transaction.setAmount(fixBadChars(Long.parseLong(form.getAmount())));
-			transaction.setTransacType('D');
+			transaction.setCustomer_id(customer.getCustomerId());
+			transaction.setAmount(Long.parseLong(fixBadChars(form.getAmount())));
+			transaction.setTransaction_type('D');
 			
 			transactionDAO.create(transaction);
 			
