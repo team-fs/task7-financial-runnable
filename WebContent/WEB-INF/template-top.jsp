@@ -184,7 +184,7 @@
 							<a  href="#">Deposit Check  </a>						
 						</div>
 						<div class="panel-body">
-							<a  href="#">Create Fund </a>						
+							<a  href="createFund.jsp">Create Fund </a>						
 						</div>
 						<div class="panel-body">
 							<a  href="#">Transition Day </a>						
