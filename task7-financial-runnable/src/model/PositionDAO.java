@@ -24,7 +24,7 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 		return positions;
 	}
 	
-	public void update(PositionBean newPosition) throws RollbackException {
+	public void updatePosition(PositionBean newPosition) throws RollbackException {
 		try {
 			Transaction.begin();
 			int curCus = newPosition.getCustomer_id();

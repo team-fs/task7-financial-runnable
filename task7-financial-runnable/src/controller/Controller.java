@@ -7,6 +7,9 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -25,10 +28,13 @@ import model.EmployeeDAO;
 import model.FundDAO;
 import model.Model;
 import model.PositionDAO;
+import model.PriceDAO;
 import databeans.CustomerBean;
 import databeans.EmployeeBean;
 import databeans.FundBean;
 import databeans.PositionBean;
+import databeans.PriceBean;
+
 
 @SuppressWarnings("serial")
 public class Controller extends HttpServlet {
@@ -41,10 +47,14 @@ public class Controller extends HttpServlet {
 		Action.add(new LogoutAction(model));
 		Action.add(new BuyFundAction(model));
 		Action.add(new ConfirmBuyAction(model));
+		Action.add(new SellFundAction(model));
+		Action.add(new ConfirmSellAction(model));
+		
 		CustomerDAO customerDAO = model.getCustomerDAO();
 		EmployeeDAO employeeDAO = model.getEmployeeDAO();
 		FundDAO fundDAO = model.getFundDAO();
 		PositionDAO positionDAO = model.getPositionDAO();
+		PriceDAO priceDAO = model.getPriceDAO();
 		
 		try {
 			// Create the user bean
@@ -78,14 +88,31 @@ public class Controller extends HttpServlet {
 			
 			fundDAO.create(fund);
 			}
+			Random random = new Random();
 			
 			PositionBean position = new PositionBean();
 			for (int i=0; i<10; i++){
 				position.setCustomer_id(1);;
-				Random random = new Random();
 				position.setFund_id(random.nextInt(10)+1);
 				position.setShares(((long)random.nextInt(10)+1));
-			positionDAO.update(position);
+			positionDAO.updatePosition(position);
+			}
+			
+			PriceBean price = new PriceBean();
+			
+			for (int i=0; i<10; i++){
+				price.setFund_id(i);
+				Calendar c = new GregorianCalendar();
+			    c.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
+			    c.set(Calendar.MINUTE, 0);
+			    c.set(Calendar.SECOND, 0);
+			    for (int j=0; j<10; j++){
+					c.add(Calendar.DAY_OF_MONTH, -1);
+					price.setPrice_date(c.getTime());
+					price.setPrice(((long)random.nextInt(10)+1));
+					priceDAO.createPrice(price);
+				}
+				
 			}
 			
 			

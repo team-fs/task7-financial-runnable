@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
@@ -14,7 +16,7 @@ public class PriceDAO extends GenericDAO<PriceBean> {
 		super(PriceBean.class, tableName, cp);
 	}
 
-	public void create(PriceBean price) throws RollbackException {
+	public void createPrice(PriceBean price) throws RollbackException {
 		PriceBean[] prices = match(MatchArg.and(
 				MatchArg.equals("fund_id", price.getFund_id()),
 				MatchArg.equals("price_date", price.getPrice_date())));
@@ -36,7 +38,17 @@ public class PriceDAO extends GenericDAO<PriceBean> {
 	public PriceBean[] getPrice(int fund_id) throws RollbackException {
 
 		PriceBean[] prices = match(MatchArg.equals("fund_id", fund_id));
+		Arrays.sort(prices);
 		return prices;
+	}
+	public long getLatestPrice(int fund_id) throws RollbackException {
+
+		PriceBean[] prices = match(MatchArg.equals("fund_id", fund_id));
+		Arrays.sort(prices);
+		if (prices.length>0){
+		return prices[prices.length - 1].getPrice();
+		}
+		else return 0;
 	}
 
 }

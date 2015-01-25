@@ -159,7 +159,7 @@
 							<a  href="buyfund.do">Buy Fund</a>						
 						</div>
 						<div class="panel-body">
-							<a  href="#">Sell Fund</a>						
+							<a  href="sellfund.do">Sell Fund</a>						
 						</div>
 						<div class="panel-body">
 							<a  href="#">Request Check</a>						

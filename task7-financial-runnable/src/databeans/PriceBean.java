@@ -6,7 +6,7 @@ import org.genericdao.PrimaryKey;
 
 @PrimaryKey("fund_id,price_date")
 
-public class PriceBean {
+public class PriceBean implements Comparable<PriceBean>{
 	int fund_id;
 	Date price_date;
 	long price;
@@ -29,5 +29,8 @@ public class PriceBean {
 		this.price = price;
 	}
 	
-	
+	public int compareTo(PriceBean o) {
+		// TODO Auto-generated method stub
+		return price_date.compareTo(o.price_date);
+	}
 }
