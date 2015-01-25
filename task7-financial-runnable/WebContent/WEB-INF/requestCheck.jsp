@@ -1,4 +1,4 @@
-<jsp:include page="header.jsp" />
+<jsp:include page="template-top.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
@@ -43,4 +43,4 @@
 	</div>
 </div>
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="template-bottom.jsp" />
