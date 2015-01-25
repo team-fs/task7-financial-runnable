@@ -35,7 +35,6 @@ import databeans.FundBean;
 import databeans.PositionBean;
 import databeans.PriceBean;
 
-
 @SuppressWarnings("serial")
 public class Controller extends HttpServlet {
 
@@ -49,13 +48,13 @@ public class Controller extends HttpServlet {
 		Action.add(new ConfirmBuyAction(model));
 		Action.add(new SellFundAction(model));
 		Action.add(new ConfirmSellAction(model));
-		
+
 		CustomerDAO customerDAO = model.getCustomerDAO();
 		EmployeeDAO employeeDAO = model.getEmployeeDAO();
 		FundDAO fundDAO = model.getFundDAO();
 		PositionDAO positionDAO = model.getPositionDAO();
 		PriceDAO priceDAO = model.getPriceDAO();
-		
+
 		try {
 			// Create the user bean
 
@@ -71,51 +70,51 @@ public class Controller extends HttpServlet {
 			customer.setZip(15213);
 			customer.setCash(1000);
 			customerDAO.create(customer);
-			
+
 			EmployeeBean employee = new EmployeeBean();
 			employee.setUsername("admin");
 			employee.setPassword("abc");
 			employee.setFirstname("First");
 			employee.setLastname("Employee");
-			
+
 			employeeDAO.create(employee);
-			
+
 			FundBean fund = new FundBean();
-			
-			for (int i=1; i<11; i++){
-			fund.setName("Fund No." + i);
-			fund.setSymbol("Fund No." + i + " is a very good fund");
-			
-			fundDAO.create(fund);
+
+			for (int i = 1; i < 11; i++) {
+				fund.setName("Fund No." + i);
+				fund.setSymbol("Fund No." + i + " is a very good fund");
+
+				fundDAO.create(fund);
 			}
 			Random random = new Random();
-			
+
 			PositionBean position = new PositionBean();
-			for (int i=0; i<10; i++){
-				position.setCustomer_id(1);;
-				position.setFund_id(random.nextInt(10)+1);
-				position.setShares(((long)random.nextInt(10)+1));
-			positionDAO.updatePosition(position);
+			for (int i = 0; i < 10; i++) {
+				position.setCustomer_id(1);
+				;
+				position.setFund_id(random.nextInt(10) + 1);
+				position.setShares(((long) random.nextInt(10) + 1));
+				positionDAO.updatePosition(position);
 			}
-			
+
 			PriceBean price = new PriceBean();
-			
-			for (int i=0; i<10; i++){
+
+			for (int i = 0; i < 10; i++) {
 				price.setFund_id(i);
 				Calendar c = new GregorianCalendar();
-			    c.set(Calendar.HOUR_OF_DAY, 0); //anything 0 - 23
-			    c.set(Calendar.MINUTE, 0);
-			    c.set(Calendar.SECOND, 0);
-			    for (int j=0; j<10; j++){
+				c.set(Calendar.HOUR_OF_DAY, 0); // anything 0 - 23
+				c.set(Calendar.MINUTE, 0);
+				c.set(Calendar.SECOND, 0);
+				for (int j = 0; j < 10; j++) {
 					c.add(Calendar.DAY_OF_MONTH, -1);
 					price.setPrice_date(c.getTime());
-					price.setPrice(((long)random.nextInt(10)+1));
+					price.setPrice(((long) random.nextInt(10) + 1));
 					priceDAO.createPrice(price);
 				}
-				
+
 			}
-			
-			
+
 		} catch (RollbackException e) {
 			e.printStackTrace();
 		}
@@ -146,7 +145,7 @@ public class Controller extends HttpServlet {
 		String servletPath = request.getServletPath();
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
 		EmployeeBean employee = (EmployeeBean) session.getAttribute("employee");
-		
+
 		String action = getActionName(servletPath);
 
 		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);

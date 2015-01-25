@@ -50,13 +50,13 @@ public class DepChkAction extends Action {
 			
 			transactionDAO.create(transaction);
 			
-			return "index.do";
+			return "requestCheck.do";
 		} catch(RollbackException e) {
 			errors.add(e.getMessage());
-			return "index.jsp";
+			return "requestCheck.jsp";
 		} catch(FormBeanException e) {
 			errors.add(e.getMessage());
-			return "index.jsp";
+			return "requestCheck.jsp";
 		}
 	}
 	
