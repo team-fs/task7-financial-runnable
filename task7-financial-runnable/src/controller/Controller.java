@@ -37,7 +37,7 @@ import databeans.PriceBean;
 
 
 @SuppressWarnings("serial")
-public class Controller extends HttpServlet {
+public class Controller extends Action {
 
 	public void init() throws ServletException {
 		Model model = new Model(getServletConfig());
