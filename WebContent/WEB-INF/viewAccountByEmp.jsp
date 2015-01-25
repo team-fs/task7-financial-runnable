@@ -14,7 +14,7 @@
 						</td>
 						<td>
 							${employee.firstname},   ${employee.lastname}
-							<input type="submit" class="btn btn-success" value="createFund" /></td>
+						
 						</td>
 						
 					</tr>
