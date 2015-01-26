@@ -42,8 +42,9 @@ public class Controller extends HttpServlet {
 	public void init() throws ServletException {
 		Model model = new Model(getServletConfig());
 
-		Action.add(new CusLoginAction(model));
-		Action.add(new EmpLoginAction(model));
+//		Action.add(new CusLoginAction(model));
+//		Action.add(new EmpLoginAction(model));
+		Action.add(new LoginAction(model));
 		Action.add(new LogoutAction(model));
 		Action.add(new BuyFundAction(model));
 		Action.add(new ConfirmBuyAction(model));
@@ -157,7 +158,8 @@ public class Controller extends HttpServlet {
 
 		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
 
-		if (action.equals("cuslogin.do") || action.equals("emplogin.do")) {
+	//	if (action.equals("cuslogin.do") || action.equals("emplogin.do")) {
+		if(action.equals("login.do")) {	
 			// Allow these actions without logging in
 			return Action.perform(action, request);
 		}

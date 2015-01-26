@@ -18,7 +18,7 @@
 			<div class="page-header">
 				<h1 class="text-danger">
 					Carnegie Financial Services
-					 <small>Ready to get started? <!--  <button type="button" class="btn btn-sm btn-danger">Sign Up an Account</button>  --> 
+					 <small><!-- Ready to get started? --> <!--  <button type="button" class="btn btn-sm btn-danger">Sign Up an Account</button>  --> 
 					 <div class="navbar-form navbar-right">
 					 <c:choose>
 				<c:when test="${not empty customer}">
@@ -29,15 +29,15 @@
 				
 				</c:when>
 				<c:otherwise>
-				 <button type="submit" data-toggle="modal" data-target="#modal-container-353912"
-						class="btn btn-success">Sign in</button>
+				 <!-- <button type="submit" data-toggle="modal" data-target="#modal-container-353912"
+						class="btn btn-success">Sign in</button> -->
 				</c:otherwise>
 				
 				</c:choose>
 					 
 					
 						</div>
-			<div class="modal fade" id="modal-container-353912" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+			<!-- <div class="modal fade" id="modal-container-353912" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						 <div class="modal-header">
@@ -82,7 +82,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-							 <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button> -->
+							 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button>
 							 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> <input type="submit" class="btn btn-success" name="button" value="Login"> 
 						</div>
 			</form>
@@ -111,7 +111,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-							 <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button> -->
+							 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save changes</button>
 							 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> <input type="submit" class="btn btn-success" name="button" value="Login"> 
 						</div>
 			</form>
@@ -123,7 +123,7 @@
 						
 					</div>
 				</div>				
-			</div>
+			</div> -->
 			
 					</small>
 				</h1>
