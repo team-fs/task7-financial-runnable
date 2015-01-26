@@ -39,7 +39,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 	    	Transaction.begin();
 	    	
 	    	TransactionBean[] transactions;
-	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.notEquals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 1), MatchArg.equals("transaction_type", 3))));
+	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.equals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 0), MatchArg.equals("transaction_type", 2))));
 	    	//Need to sort??
 	    	Transaction.commit();
 	    	cash -= amount;
@@ -62,7 +62,7 @@ public boolean checkEnoughShare (int customerId, long share, long amount) {
 	    	Transaction.begin();
 	    	
 	    	TransactionBean[] transactions;
-	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.notEquals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 2))));
+	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.equals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 1))));
 	    	//Need to sort??
 	    	Transaction.commit();
 	    	share -= amount;
