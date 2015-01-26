@@ -1,4 +1,4 @@
-<jsp:include page="template-top.jsp" />
+<%-- <jsp:include page="template-top.jsp" />
 
 <p style="font-size: medium">Enter your new password</p>
 
@@ -24,3 +24,4 @@
 </p>
 
 <jsp:include page="template-bottom.jsp" />
+ --%>

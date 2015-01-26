@@ -146,7 +146,7 @@
 							<a  href="cuslogin.do">View Account</a>						
 						</div>
 						<div class="panel-body">
-							<a  href="#">Change Password</a>						
+							<a  href="cusChangePwd.do">Change Password</a>						
 						</div>				
 						<div class="panel-body">
 							<a  href="logout.do">Logout</a>						
