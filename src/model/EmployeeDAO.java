@@ -1,5 +1,6 @@
 package model;
 
+import databeans.CustomerBean;
 import databeans.EmployeeBean;
 
 import org.genericdao.*;
@@ -9,7 +10,18 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean>{
 	public EmployeeDAO(String tableName, ConnectionPool pool) throws DAOException {
 		super(EmployeeBean.class, tableName, pool);
 	}
-	
+	public void createEmp(EmployeeBean newEmployee) throws RollbackException {
+		if (read(newEmployee.getUsername())!=null){
+			return;
+		}
+		try {
+			Transaction.begin();
+			create(newEmployee);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
 	public void setPassword(String username, String password) throws RollbackException {
         try {
         	Transaction.begin();

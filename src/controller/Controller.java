@@ -79,7 +79,7 @@ public class Controller extends HttpServlet {
 			employee.setFirstname("First");
 			employee.setLastname("Employee");
 			
-			employeeDAO.create(employee);
+			employeeDAO.createEmp(employee);
 			
 			FundBean fund = new FundBean();
 			

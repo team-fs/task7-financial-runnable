@@ -20,7 +20,7 @@ public class PositionDAO extends GenericDAO<PositionBean>{
 	}
 
 	public PositionBean[] getPositions() throws RollbackException {
-		PositionBean[] positions = match();
+		PositionBean[] positions = match(MatchArg.notEquals("shares",0L));
 		return positions;
 	}
 	
