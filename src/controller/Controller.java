@@ -50,6 +50,8 @@ public class Controller extends HttpServlet {
 		Action.add(new SellFundAction(model));
 		Action.add(new ConfirmSellAction(model));
 		Action.add(new CreateFundAction(model));
+		Action.add(new EmpRegisterAction(model));
+		Action.add(new CusRegisterAction(model));
 		
 		CustomerDAO customerDAO = model.getCustomerDAO();
 		EmployeeDAO employeeDAO = model.getEmployeeDAO();

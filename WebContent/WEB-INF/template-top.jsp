@@ -60,7 +60,8 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="panel-998277">
 						<p>
-							</p><form class="form-horizontal"  method="post" action="cuslogin.do">
+							</p>
+							<form class="form-horizontal"  method="post" action="cuslogin.do">
 				<div class="form-group">
 					 <label for="inputEmail3" class="col-sm-2 control-label"><font size="3" face="Verdana">Username</font></label>
 					<div class="col-sm-10">
@@ -195,16 +196,16 @@
 					</div>
 					<div id="panel-element-236922" class="panel-collapse">
 						<div class="panel-body">
-							<a  href="#">Create Employee Account </a>						
+							<a  href="empRegister.do">Create Employee Account </a>						
 						</div>
 						<div class="panel-body">
-							<a  href="#">Create Customer Account </a>						
+							<a  href="cusRegister.do">Create Customer Account </a>						
 						</div>
 						<div class="panel-body">
 							<a  href="#">Reset Customer Password </a>						
 						</div>
 						<div class="panel-body">
-							<a  href="#">View Customer Account </a>						
+							<a  href="viewAccountByEmp.do">View Customer Account </a>						
 						</div>
 					</div>
 					<div class="panel-heading">

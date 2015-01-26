@@ -36,6 +36,10 @@ public class CusRegisterAction extends Action{
 			CusRegisterForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			
+			if (!form.isPresent()) {
+				return "cusRegister.jsp";
+			}
+			
 			// Any validation errors?
 			errors.addAll(form.getValidationErrors());
 			if (errors.size() != 0) {
@@ -60,12 +64,15 @@ public class CusRegisterAction extends Action{
 				customer.setZip(form.getZip());
 
 				cusDAO.create(customer);
+                String success = "New customer, " + form.getUsername() + "has been created";
+
 
 				// Attach (this copy of) the user bean to the session
 				HttpSession session = request.getSession(false);
 				session.setAttribute("customer", customer);
+				session.setAttribute("message", success);
 
-				return "index,jsp";  //return to the research page?!!
+				return "success.jsp";  //return to the research page?!!
 			}
 
 		} catch (RollbackException e) {
