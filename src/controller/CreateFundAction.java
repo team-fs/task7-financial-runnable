@@ -20,7 +20,7 @@ import model.TransactionDAO;
 import model.FundDAO;
 import formbeans.BuyForm;
 import formbeans.CreateFundForm;
-import formbeans.RegisterForm;
+import formbeans.CusRegisterForm;
 
 public class CreateFundAction extends Action {
 	private FormBeanFactory<CreateFundForm> formBeanFactory = FormBeanFactory.getInstance(CreateFundForm.class);

@@ -1,6 +1,5 @@
 package model;
 
-import databeans.CustomerBean;
 import databeans.EmployeeBean;
 
 import org.genericdao.*;
