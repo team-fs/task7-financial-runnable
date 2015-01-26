@@ -39,15 +39,22 @@ public class ReqChkAction extends Action {
 			RequestCheckForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			
-			errors.addAll(form.getValidationErrors());
-	        if (errors.size() > 0) return "error.jsp";
-			
 	        TransactionBean transaction = new TransactionBean();
 			transaction.setCustomer_id(customer.getCustomerId());
 			transaction.setAmount(Long.parseLong(fixBadChars(form.getAmount())));
 			transaction.setTransaction_type('R');
 			
-			transactionDAO.create(transaction);
+			if(customer.getCash() < transaction.getAmount()){
+				errors.add("The requested amount exceeds your current cash balance.");
+			} else {
+				transactionDAO.create(transaction);
+				customer.setCash(customer.getCash() - transaction.getAmount());
+			}
+						
+			errors.addAll(form.getValidationErrors());
+	        if (errors.size() > 0) return "error.jsp";
+			
+	        request.getSession(true).setAttribute("customer", customer);
 			
 			return "requestCheck.do";
 		} catch(RollbackException e) {

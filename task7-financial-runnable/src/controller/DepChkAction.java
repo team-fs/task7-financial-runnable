@@ -49,6 +49,12 @@ public class DepChkAction extends Action {
 			transaction.setTransaction_type('D');
 			
 			transactionDAO.create(transaction);
+			customer.setCash(customer.getCash() - transaction.getAmount());
+					
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() > 0) return "error.jsp";
+		
+			request.getSession(true).setAttribute("customer", customer);
 			
 			return "requestCheck.do";
 		} catch(RollbackException e) {
