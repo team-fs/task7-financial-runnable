@@ -19,7 +19,8 @@ public class FundDAO extends GenericDAO<FundBean> {
 	public void create(FundBean Fund) throws RollbackException {
 		FundBean[] funds = match(MatchArg.equals("name", Fund.getName()));
 		if (funds.length > 0) {
-			return;
+			throw new RollbackException("Fund name \" "+
+		Fund.getName()+" \"already exists");
 		}
 		try {
 			Transaction.begin();
