@@ -104,9 +104,6 @@
 							Fund ID
 						</th>
 						<th>
-							Fund Name
-						</th>
-						<th>
 							Number of shares
 						</th>
 						<th>
@@ -115,12 +112,11 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:set var="count" value="1" />
+				<c:set var="count" value="0" />
 				<c:forEach var="position" items="${positions}" >
-				<c:forEach var="price" items="${priceList }}"> 
+				<c:set var="price" value="${ priceList }" />
 				
-				<c:set var="count" value="${ count }" />
-				<c:set var="totalPrice" value="${position.shares } * ${price.price }" />
+				<c:set var="count" value="${count+1 }" />
 					<tr>
 						<td>
 							${count}
@@ -132,10 +128,9 @@
 							${position.shares }
 						</td>
 						<td>
-							${totalPrice}
+							${price[count-1]}
 						</td>
 					</tr>
-					</c:forEach>
 				</c:forEach>			
 				</tbody>
 			</table>

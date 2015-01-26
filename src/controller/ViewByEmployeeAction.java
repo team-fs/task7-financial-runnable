@@ -78,8 +78,10 @@ public class ViewByEmployeeAction extends Action{
 					for (int i = 0; i<positions.length; i++) {
 						int fund_id = positions[i].getFund_id();
 						long price = priceDAO.getLatestPrice(fund_id);
-						priceList.add(price);
+						long totalPrice = price * positions[i].getShares();
+						priceList.add(totalPrice);
 					}
+					//System.out.println();
 					request.setAttribute("positions", positions);
 					request.setAttribute("priceList", priceList);
                     return "viewAccountByEmp.jsp";
