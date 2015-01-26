@@ -94,7 +94,7 @@ public class Controller extends HttpServlet {
 			PositionBean position = new PositionBean();
 			for (int i=0; i<10; i++){
 				position.setCustomer_id(1);;
-				position.setFund_id(random.nextInt(10)+1);
+				position.setFund_id(i+1);
 				position.setShares(((long)random.nextInt(10)+1));
 			positionDAO.updatePosition(position);
 			}

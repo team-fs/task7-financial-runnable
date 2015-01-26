@@ -60,6 +60,7 @@ public class SellFundAction extends Action {
 				position = positions[i];
 				id = position.getFund_id();
 				pou.setId(id);
+				if (fundDAO.read(id)!=null)
 				pou.setName(fundDAO.read(id).getName());
 				pou.setShares(position.getShares());
 				pou.setPrice(priceDAO.getLatestPrice(id));

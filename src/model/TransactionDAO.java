@@ -49,4 +49,20 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 		    }
 		    
 	}
+
+	public void createSellTransaction(TransactionBean transaction) {
+		// TODO Auto-generated method stub
+		 try {
+		    	Transaction.begin();
+		    	transaction.setTransaction_type(1);;
+		    	createAutoIncrement(transaction);
+		    	Transaction.commit();
+				
+		    } catch (RollbackException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (Transaction.isActive()) Transaction.rollback();
+		    }
+	}
 }

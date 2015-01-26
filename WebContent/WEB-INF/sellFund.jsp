@@ -7,20 +7,22 @@
 	<thead>
 		<tr>
 			<th>Product</th>
-			<th>Price</th>
+			<th>Current Price</th>
 			<th>Share</th>
+			<th>Amount</th>
 			<th>Operation</th>
 		</tr>
 	</thead>
 	
 		   
         <c:forEach var="item" items="${posList}">
-		   <form action="confirmbuy.do" method="POST">
+		   <form action="confirmsell.do" method="POST">
          
         <tr>
 			<td>${ item.name }</td>
 			<td>${ item.price }</td>
 			<td>${ item.shares }</td>
+			<td><input type="text" name="amount" /></td>
 			<td><input type="submit" class="btn btn-success" value="Sell" /></td>
 		</tr>
 		
