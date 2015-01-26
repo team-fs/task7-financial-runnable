@@ -30,52 +30,59 @@ public class EmpRegisterAction extends Action{
 	}
 
 	public String perform(HttpServletRequest request) {
+		EmployeeBean right = (EmployeeBean) request.getSession(false).getAttribute("employee");
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
-
-		try {
-			EmpRegisterForm form = formBeanFactory.create(request);
-			request.setAttribute("form", form);
-			
-			if (!form.isPresent()) {
-				return "empRegister.jsp";
-			}
-			
-			// Any validation errors?
-			errors.addAll(form.getValidationErrors());
-			if (errors.size() != 0) {
-				return "empRegister.jsp";
-			}
-			
-			// Create the user bean
-			EmployeeBean employee = new EmployeeBean(); 
-			if ((employeeDAO.read(form.getUsername())) != null) {
-				errors.add("The username has existed");
-				return "empRegister.jsp";
-			} else {
-
-				employee.setUsername(form.getUsername());
-				employee.setFirstname(form.getFirstName());
-				employee.setLastname(form.getLastName());
-				employee.setPassword(form.getPassword());
-
-				employeeDAO.create(employee);
-                String success = "A new Employee" + form.getUsername() + "has been created";
-                
-				// Attach (this copy of) the user bean to the session
-				HttpSession session = request.getSession(false);
-				session.setAttribute("employee", employee);
-				session.setAttribute("message", success);
+		if (right == null) {
+			errors.add("You don't have the employee right to create the account!");
+			return "error.jsp";
+		} else {
+			try {
+				EmpRegisterForm form = formBeanFactory.create(request);
+				request.setAttribute("form", form);
 				
-				return "success.jsp";  
-			}
+				if (!form.isPresent()) {
+					return "empRegister.jsp";
+				}
+				
+				// Any validation errors?
+				errors.addAll(form.getValidationErrors());
+				if (errors.size() != 0) {
+					return "empRegister.jsp";
+				}
+				
+				// Create the user bean
+				EmployeeBean employee = new EmployeeBean(); 
+				if ((employeeDAO.read(form.getUsername())) != null) {
+					errors.add("The username has existed");
+					return "empRegister.jsp";
+				} else {
 
-		} catch (RollbackException e) {
-			errors.add(e.getMessage());
-			return "error.jsp";
-		} catch (FormBeanException e) {
-			errors.add(e.getMessage());
-			return "error.jsp";
+					employee.setUsername(form.getUsername());
+					employee.setFirstname(form.getFirstName());
+					employee.setLastname(form.getLastName());
+					employee.setPassword(form.getPassword());
+
+					employeeDAO.create(employee);
+	                String success = "A new Employee" + form.getUsername() + "has been created";
+	                
+					// Attach (this copy of) the user bean to the session
+					HttpSession session = request.getSession(false);
+					session.setAttribute("employee", employee);
+					session.setAttribute("message", success);
+					
+					return "success.jsp";  
+				}
+
+			} catch (RollbackException e) {
+				errors.add(e.getMessage());
+				return "error.jsp";
+			} catch (FormBeanException e) {
+				errors.add(e.getMessage());
+				return "error.jsp";
+			}
 		}
+
+		
 	}
 }

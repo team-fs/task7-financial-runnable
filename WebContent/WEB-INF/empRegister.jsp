@@ -6,34 +6,34 @@
 	<div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Username</label>
 		<div class="col-sm-10">
-			<input type="username" class="form-control" id="inputEmail3" name="username" value="${username }">
+			<input type="username" class="form-control" id="inputEmail3" name="username" value="${username }" style="width:12em">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" name="password" value="${password }">
+				<input type="password" class="form-control" id="inputPassword3" name="password" value="${password }" style="width:12em">
 			</div>
 	</div>
 	<div class="form-group">
 		 <label for="inputPassword3" class="col-sm-2 control-label">Confirm Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" name="confirm" value="${confirm }">
+				<input type="password" class="form-control" id="inputPassword3" name="confirm" value="${confirm }" style="width:12em">
 			</div>
 	</div>
     
     <div class="form-group">
      	<label for="inputEmail3" class="col-sm-2 control-label">First Name</label>
 		<div class="col-sm-10">
-			<input type="username" class="form-control" id="inputEmail3" name="firstName" value="${firstName }">
+			<input type="username" class="form-control" id="inputEmail3" name="firstName" value="${firstName }" style="width:12em">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Last Name</label>
 		<div class="col-sm-10">
-			<input type="username" class="form-control" id="inputEmail3" name="lastName" value="${lastName }">
+			<input type="username" class="form-control" id="inputEmail3" name="lastName" value="${lastName }" style="width:12em">
 		</div>
     </div>
     
