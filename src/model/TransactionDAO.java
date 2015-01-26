@@ -34,13 +34,12 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 	    return null;
 	}
 	public boolean checkEnoughCash (int customerId, long cash, long amount) {
-		long sum = 0;
-    	
+		
 		try {
 	    	Transaction.begin();
 	    	
 	    	TransactionBean[] transactions;
-	    	transactions=match(MatchArg.and(MatchArg.notEquals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 1), MatchArg.equals("transaction_type", 3))));
+	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.notEquals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 1), MatchArg.equals("transaction_type", 3))));
 	    	//Need to sort??
 	    	Transaction.commit();
 	    	cash -= amount;
@@ -48,6 +47,29 @@ public class TransactionDAO extends GenericDAO<TransactionBean>{
 	    	for(TransactionBean tran:transactions){
         		cash -= tran.getAmount();
         		if (cash < 0 ) return false;
+        	}
+	     } catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+	    }
+	    return true;
+	}
+public boolean checkEnoughShare (int customerId, long share, long amount) {
+		
+		try {
+	    	Transaction.begin();
+	    	
+	    	TransactionBean[] transactions;
+	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.notEquals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 2))));
+	    	//Need to sort??
+	    	Transaction.commit();
+	    	share -= amount;
+	    	if (share < 0 ) return false;
+	    	for(TransactionBean tran:transactions){
+        		share -= tran.getShares();
+        		if (share < 0 ) return false;
         	}
 	     } catch (RollbackException e) {
 			// TODO Auto-generated catch block
