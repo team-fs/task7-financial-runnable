@@ -205,7 +205,7 @@
 							<a  href="#">Reset Customer Password </a>						
 						</div>
 						<div class="panel-body">
-							<a  href="viewAccountByEmp.do">View Customer Account </a>						
+							<a  href="viewByEmployee.do">View Customer Account </a>						
 						</div>
 					</div>
 					<div class="panel-heading">

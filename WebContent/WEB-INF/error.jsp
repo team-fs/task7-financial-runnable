@@ -3,7 +3,7 @@
 <jsp:include page="error-list.jsp" />
 
 <p>
-    <a href="manage.do">Back to manage your favorites</a>
+    <a href="template-top.jsp">Back to manage your favorites</a>
 </p>
 
 <jsp:include page="template-bottom.jsp" />

@@ -39,7 +39,7 @@ public class EmpRegisterAction extends Action{
 		} else {
 			try {
 				EmpRegisterForm form = formBeanFactory.create(request);
-				request.setAttribute("form", form);
+				//request.setAttribute("form", form);
 				
 				if (!form.isPresent()) {
 					return "empRegister.jsp";
