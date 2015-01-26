@@ -10,106 +10,103 @@ import org.genericdao.Transaction;
 import databeans.PositionBean;
 import databeans.TransactionBean;
 
-public class TransactionDAO extends GenericDAO<TransactionBean>{
-	
-	public TransactionDAO(String tableName, ConnectionPool pool) throws DAOException {
+public class TransactionDAO extends GenericDAO<TransactionBean> {
+
+	public TransactionDAO(String tableName, ConnectionPool pool)
+			throws DAOException {
 		super(TransactionBean.class, tableName, pool);
 	}
-	
-	public TransactionBean[] getTransactions (int customerId) {
-	    try {
-	    	Transaction.begin();
-	    	
-	    	TransactionBean[] transactions;
-	    	transactions=match(MatchArg.equals("customer_id", customerId));
-	    	//Need to sort??
-	    	Transaction.commit();
-			return transactions;
-	    } catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-	    }
-	    return null;
+
+	public TransactionBean[] getTransactions(int customerId)
+			throws RollbackException {
+		TransactionBean[] transactions = match(MatchArg.equals("customer_id",
+				customerId));
+		return transactions;
+
 	}
-	public boolean checkEnoughCash (int customerId, long cash, long amount) {
-		
-		try {
-	    	Transaction.begin();
-	    	
-	    	TransactionBean[] transactions;
-	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.equals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 0), MatchArg.equals("transaction_type", 2))));
-	    	//Need to sort??
-	    	Transaction.commit();
-	    	cash -= amount;
-	    	if (cash < 0 ) return false;
-	    	for(TransactionBean tran:transactions){
-        		cash -= tran.getAmount();
-        		if (cash < 0 ) return false;
-        	}
-	     } catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-	    }
-	    return true;
+
+	public TransactionBean[] getPendingBuy(int customerId)
+			throws RollbackException {
+		TransactionBean[] transactions = match(
+				MatchArg.equals("customer_id", customerId),
+				MatchArg.equals("execute_date", null),
+				MatchArg.or(MatchArg.equals("transaction_type", 0),
+						MatchArg.equals("transaction_type", 2)));
+		return transactions;
+
 	}
-public boolean checkEnoughShare (int customerId, long share, long amount) {
-		
-		try {
-	    	Transaction.begin();
-	    	
-	    	TransactionBean[] transactions;
-	    	transactions=match(MatchArg.and(MatchArg.equals("customer_id",customerId), MatchArg.equals("execute_date",null), MatchArg.or(MatchArg.equals("transaction_type", 1))));
-	    	//Need to sort??
-	    	Transaction.commit();
-	    	share -= amount;
-	    	if (share < 0 ) return false;
-	    	for(TransactionBean tran:transactions){
-        		share -= tran.getShares();
-        		if (share < 0 ) return false;
-        	}
-	     } catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (Transaction.isActive()) Transaction.rollback();
-	    }
-	    return true;
+
+	public boolean checkEnoughCash(int customerId, long cash, long amount)
+			throws RollbackException {
+
+		TransactionBean[] transactions = match(MatchArg.and(
+				MatchArg.equals("customer_id", customerId),
+				MatchArg.equals("execute_date", null),
+				MatchArg.or(MatchArg.equals("transaction_type", 0),
+						MatchArg.equals("transaction_type", 2))));
+		cash -= amount;
+		if (cash < 0)
+			return false;
+		for (TransactionBean tran : transactions) {
+			cash -= tran.getAmount();
+			if (cash < 0)
+				return false;
+		}
+		return true;
+	}
+
+	public boolean checkEnoughShare(int customerId, int fundId, long share, long amount)
+			throws RollbackException {
+
+		TransactionBean[] transactions = match(MatchArg.and(
+				MatchArg.equals("customer_id", customerId),
+				MatchArg.equals("fund_id", fundId),
+				MatchArg.equals("execute_date", null),
+				MatchArg.or(MatchArg.equals("transaction_type", 1))));
+		share -= amount;
+		if (share < 0)
+			return false;
+		for (TransactionBean tran : transactions) {
+			share -= tran.getShares();
+			if (share < 0)
+				return false;
+		}
+
+		return true;
 	}
 
 	public void createBuyTransaction(TransactionBean transaction) {
 		// TODO Auto-generated method stub
-		 try {
-		    	Transaction.begin();
-		    	transaction.setTransaction_type(0);;
-		    	createAutoIncrement(transaction);
-		    	Transaction.commit();
-				
-		    } catch (RollbackException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (Transaction.isActive()) Transaction.rollback();
-		    }
-		    
+		try {
+			Transaction.begin();
+			transaction.setTransaction_type(0);
+			createAutoIncrement(transaction);
+			Transaction.commit();
+
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+
 	}
 
 	public void createSellTransaction(TransactionBean transaction) {
 		// TODO Auto-generated method stub
-		 try {
-		    	Transaction.begin();
-		    	transaction.setTransaction_type(1);;
-		    	createAutoIncrement(transaction);
-		    	Transaction.commit();
-				
-		    } catch (RollbackException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (Transaction.isActive()) Transaction.rollback();
-		    }
+		try {
+			Transaction.begin();
+			transaction.setTransaction_type(1);
+			createAutoIncrement(transaction);
+			Transaction.commit();
+
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
 	}
 }

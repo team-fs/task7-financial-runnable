@@ -57,7 +57,7 @@ public class ConfirmSellAction extends Action {
 			transaction.setFund_id(form.getIdAsInt());; //should obtain from fund table, which is not established so far. So recorded as 0 temporarily here.
 			transaction.setShares(form.getAmountAsLong());
 			//加一个判断语句：amount<cash
-			if (transactionDAO.checkEnoughShare(customer.getCustomerId(), positionDAO.read(customer.getCustomerId(),transaction.getFund_id()).getShares(), transaction.getShares()))
+			if (transactionDAO.checkEnoughShare(customer.getCustomerId(), transaction.getFund_id(),positionDAO.read(customer.getCustomerId(),transaction.getFund_id()).getShares(), transaction.getShares()))
 			transactionDAO.createSellTransaction(transaction);
 //			
 			//customerDAO.updateCash(customer.getCustomerId(), 0-form.getAmountAsLong());
