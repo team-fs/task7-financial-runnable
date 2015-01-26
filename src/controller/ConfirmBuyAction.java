@@ -47,12 +47,13 @@ public class ConfirmBuyAction extends Action {
 //			session.setAttribute("fundList", fundDAO.getFundList());
 			TransactionBean transaction = new TransactionBean();
 			transaction.setCustomer_id(customer.getCustomerId());
-			transaction.setFund_id(form.getIdAsInt());; //should obtain from fund table, which is not established so far. So recorded as 0 temporarily here.
+			transaction.setFund_id(form.getIdAsInt()); //should obtain from fund table, which is not established so far. So recorded as 0 temporarily here.
 			transaction.setAmount(form.getAmountAsLong());
 //			//加一个判断语句：amount<cash
+			if (transactionDAO.checkEnoughCash(customer.getCustomerId(), customer.getCash(), transaction.getAmount()))
 			transactionDAO.createBuyTransaction(transaction);
 //			
-			customerDAO.updateCash(customer.getCustomerId(), 0-form.getAmountAsLong());
+//			customerDAO.updateCash(customer.getCustomerId(), 0-form.getAmountAsLong());
 			
 			HttpSession session = request.getSession();
 			customer = customerDAO.read(customer.getCustomerId());

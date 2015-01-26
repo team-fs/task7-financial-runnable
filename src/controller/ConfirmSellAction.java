@@ -60,12 +60,12 @@ public class ConfirmSellAction extends Action {
 			transactionDAO.createSellTransaction(transaction);
 //			
 			//customerDAO.updateCash(customer.getCustomerId(), 0-form.getAmountAsLong());
-			PositionBean newPosition = new PositionBean();
-			newPosition.setFund_id(form.getIdAsInt());
-			newPosition.setCustomer_id(customer.getCustomerId());
-			newPosition.setShares(0-form.getAmountAsLong());
-			System.out.print(0-form.getSharesAsLong());
-			positionDAO.updatePosition(newPosition);
+//			PositionBean newPosition = new PositionBean();
+//			newPosition.setFund_id(form.getIdAsInt());
+//			newPosition.setCustomer_id(customer.getCustomerId());
+//			newPosition.setShares(0-form.getAmountAsLong());
+//			System.out.print(0-form.getSharesAsLong());
+//			positionDAO.updatePosition(newPosition);
 			
 			HttpSession session = request.getSession();
 			PositionBean[] positions = positionDAO.getPositions();
