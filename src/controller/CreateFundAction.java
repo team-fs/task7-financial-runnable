@@ -38,11 +38,16 @@ public class CreateFundAction extends Action {
     public String perform(HttpServletRequest request) {
         List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
+        
+        List<String> success = new ArrayList<String>();
+        request.setAttribute("success",success);
 
         try {
-	        CreateFundForm form = formBeanFactory.create(request);
+        	HttpSession session = request.getSession(false);
+        	session.setAttribute("fundList", fundDAO.getFundList());
+	        
+        	CreateFundForm form = formBeanFactory.create(request);
 	        request.setAttribute("form",form);
-	
 	        // If no params were passed, return with no errors so that the form will be
 	        // presented (we assume for the first time).
 	        if (!form.isPresent()) {
@@ -58,16 +63,18 @@ public class CreateFundAction extends Action {
 	        // Create the user bean
 	        FundBean fund = new FundBean();
 	        fund.setName(form.getFundName());
-	        fund.setSymbol(form.getTicket());
+	        fund.setSymbol(form.getTicker());
 	       
         	fundDAO.create(fund);
-        
-			// Attach (this copy of) the user bean to the session
-	        //HttpSession session = request.getSession(false);
-	        //session.setAttribute("fund",fund);
+        	success.add("You have successfully created fund\"" + form.getFundName() + "\"");
+        	form.setFundName("");
+        	form.setTicker("");
+        	request.setAttribute("form",form);
 	        
-	        //When Finished, it should return to the homepage of employees.
-			return "viewAccountByEmp.jsp";
+        	session.setAttribute("fundList", fundDAO.getFundList());
+	        
+
+        	 return "createFund.jsp";
         } catch (RollbackException e) {
         	errors.add(e.getMessage());
         	return "createFund.jsp";

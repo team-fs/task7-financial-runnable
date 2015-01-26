@@ -4,9 +4,10 @@ package databeans;
 public class PositionOfUser {
 	int id;
 	String name;
+	String symbol;
 	long price;
 	long shares;
-	
+	long amount;
 	public int getId() {
 		return id;
 	}
@@ -18,6 +19,12 @@ public class PositionOfUser {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getSymbol() {
+		return symbol;
+	}
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 	public long getPrice() {
 		return price;
@@ -31,4 +38,11 @@ public class PositionOfUser {
 	public void setShares(long shares) {
 		this.shares = shares;
 	}
+	public long getAmount() {
+		return amount;
+	}
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+	
 }

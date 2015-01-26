@@ -12,6 +12,7 @@ import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
 import databeans.FundBean;
+import databeans.PositionOfUser;
 import databeans.TransactionBean;
 import model.CustomerDAO;
 import model.Model;
@@ -52,12 +53,39 @@ public class ConfirmBuyAction extends Action {
 //			//加一个判断语句：amount<cash
 			if (transactionDAO.checkEnoughCash(customer.getCustomerId(), customer.getCash(), transaction.getAmount()))
 			transactionDAO.createBuyTransaction(transaction);
+			else errors.add("Not enough amount");
 //			
 //			customerDAO.updateCash(customer.getCustomerId(), 0-form.getAmountAsLong());
 			
 			HttpSession session = request.getSession();
 			customer = customerDAO.read(customer.getCustomerId());
 			session.setAttribute("customer",customer);
+			
+			TransactionBean[] trans = transactionDAO.getPendingBuy(customer.getCustomerId());
+			PositionOfUser[] pous = new PositionOfUser[trans.length];
+			TransactionBean tran = new TransactionBean();
+			int id = 0;
+			long pendingAmount = 0;
+			FundBean fund = new FundBean();
+			for (int i = 0; i<pous.length; i++){
+				PositionOfUser pou = new PositionOfUser();
+				tran = trans[i];
+				id = tran.getFund_id();
+				if ((fund=fundDAO.read(id))!=null){
+					pou.setName(fund.getName());
+					pou.setSymbol(fund.getSymbol());
+				}
+				else {
+					pou.setName("Check Request");
+					pou.setName("N/A");
+				}
+				pou.setAmount(tran.getAmount());
+				pous[i] = pou;
+				pendingAmount += tran.getAmount();
+			}
+			session.setAttribute("mFundList", pous);
+			session.setAttribute("pendingAmount", pendingAmount);
+			session.setAttribute("availableAmount", customer.getCash()-pendingAmount);
 			return "buyFund.jsp";
 		} catch(FormBeanException e) {
 			errors.add(e.getMessage());

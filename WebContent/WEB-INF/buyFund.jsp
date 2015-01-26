@@ -3,7 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <h2>Buy Fund</h2>
-<h4 class="text-primary">Available Balance : ${customer.cash}</h4>
+<h4 class="text-primary">Total Balance : ${customer.cash}</h4>
+<h4 class="text-primary">Pending Balance : ${pendingAmount}</h4>
+<h4 class="text-primary">Available Balance : ${availableAmount}</h4>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -30,6 +32,29 @@
 		
 		        			
         </form>
+		
+	</c:forEach>
+	
+</table>
+<h2>Pending Buy</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Product</th>
+			<th>Description</th>
+			<th>Amount</th>
+			</tr>
+	</thead>
+	   <c:forEach var="item" items="${mFundList}">
+		  
+        <tr>
+			<td>${ item.name }</td>
+			<td>${ item.symbol }</td>
+			<td>${ item.amount }</td>
+			</tr>
+		
+		 
+		
 		
 	</c:forEach>
 	
