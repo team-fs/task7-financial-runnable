@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,12 +75,14 @@ public class ViewByEmployeeAction extends Action{
 
 					//Return the fund information.
 					PositionBean[] positions = posDAO.getPositions(cusId);
-					List<Long> priceList = new ArrayList<Long> ();
+					List<String> priceList = new ArrayList<String>();
 					for (int i = 0; i<positions.length; i++) {
 						int fund_id = positions[i].getFund_id();
 						long price = priceDAO.getLatestPrice(fund_id);
-						long totalPrice = price * positions[i].getShares();
-						priceList.add(totalPrice);
+						double totalPrice = price * positions[i].getShares();
+						
+						DecimalFormat df = new DecimalFormat("#,###.00");
+						priceList.add(df.format(totalPrice));
 					}
 					//System.out.println();
 					request.setAttribute("positions", positions);

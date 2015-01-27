@@ -6,55 +6,55 @@
 	<div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Username</label>
 		<div class="col-sm-10">
-			<input type="username" class="form-control" id="inputEmail3" name="username" value="${username }" style="width:12em">
+			<input type="username" class="form-control" id="inputEmail3" name="username" value="${form.username }" style="width:12em">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" name="password" value="${password }" style="width:12em">
+				<input type="password" class="form-control" id="inputPassword3" name="password" value="${form.password }" style="width:12em">
 			</div>
 	</div>
 	<div class="form-group">
 		 <label for="inputPassword3" class="col-sm-2 control-label">Confirm Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" name="confirm" value="${confirm }" style="width:12em">
+				<input type="password" class="form-control" id="inputPassword3" name="confirm" value="${form.confirm }" style="width:12em">
 			</div>
 	</div>
     
     <div class="form-group">
      	<label for="inputEmail3" class="col-sm-2 control-label">First Name</label>
 		<div class="col-sm-10">
-			<input type="firstName" class="form-control" id="inputEmail3" name="firstName" value="${firstName }" style="width:12em">
+			<input type="firstName" class="form-control" id="inputEmail3" name="firstName" value="${form.firstName }" style="width:12em">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Last Name</label>
 		<div class="col-sm-10">
-			<input type="lastName" class="form-control" id="inputEmail3" name="lastName" value="${lastName }" style="width:12em">
+			<input type="lastName" class="form-control" id="inputEmail3" name="lastName" value="${form.lastName }" style="width:12em">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Address Line 1</label>
 		<div class="col-sm-10">
-			<input type="address" class="form-control" id="inputEmail3" name="addrL1" value="${addrL1 }">
+			<input type="address" class="form-control" id="inputEmail3" name="addrL1" value="${form.addrL1 }">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Address Line 2</label>
 		<div class="col-sm-10">
-			<input type="address" class="form-control" id="inputEmail3" name="addrL2" value="${addrL2 }">
+			<input type="address" class="form-control" id="inputEmail3" name="addrL2" value="${form.addrL2 }">
 		</div>
     </div>
     
     <div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">City</label>
 			<div class="col-sm-10">
-			    <input type="text"  class="form-control" id="inputEmail3" name="city" value="${city }" style="width:12em">
+			    <input type="text"  class="form-control" id="inputEmail3" name="city" value="${form.city }" style="width:12em">
 			</div>
 	</div>
 	
@@ -131,7 +131,7 @@
   	 <div class="form-group">	
 		<label for="inputEmail3" class="col-sm-2 control-label">Zip</label>
 		    <div class="col-sm-10">
-			    <input type="text" class="form-control" id="inputEmail3" name="zip" value="${zip }" style="width:12em">
+			    <input type="text" class="form-control" id="inputEmail3" name="zip" value="${form.zip }" style="width:12em">
 			</div>
     </div>
     
