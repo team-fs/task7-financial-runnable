@@ -27,7 +27,7 @@
 			   </table>
 <!-- End of choosing -->
 			   
-    <c:set var="customer" value="${customer}" />
+    <c:set var="customer" value="${user}" />
 			<c:choose>
                     <c:when test="${customer == null}">
                         <br/>
@@ -124,10 +124,10 @@
 						<td>
 							${position.fund_id }
 						</td>
-						<td>
+						<td align="right">
 							${position.shares }
-						</td>
-						<td>
+						</td >
+						<td align="right">
 							${price[count-1]}
 						</td>
 					</tr>

@@ -38,7 +38,8 @@ public class EmpLoginAction extends Action {
 		try {
 			HttpSession session = request.getSession();
 			if (session.getAttribute("employee") != null)
-			return "viewAccountByEmp.jsp";
+			return "viewByEmployee.do";
+			
 			CusLoginForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			

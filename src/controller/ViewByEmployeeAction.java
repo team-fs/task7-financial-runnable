@@ -65,11 +65,11 @@ public class ViewByEmployeeAction extends Action{
 					errors.add("A customer should be specified!");
 					return "error.jsp";
 				} else {
-					CustomerBean customer = cusDAO.read(username);
-					int cusId = customer.getCustomerId();
+					CustomerBean user = cusDAO.read(username);
+					int cusId = user.getCustomerId();
 					TransactionBean[] transactions = transacDAO.getTransactions(cusId);
 					
-					request.setAttribute("customer", customer);
+					request.setAttribute("user", user);
 					request.setAttribute("transaction", transactions[transactions.length-1]); //Return the last trading day.
 
 					//Return the fund information.
