@@ -1,6 +1,6 @@
 package databeans;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.genericdao.PrimaryKey;
 
@@ -34,8 +34,8 @@ public class TransactionBean implements Comparable<TransactionBean>{
 	public Date getExecute_date() {
 		return execute_date;
 	}
-	public void setExecute_date(java.util.Date d) {
-		this.execute_date = d;
+	public void setExecute_date(Date execute_date) {
+		this.execute_date = execute_date;
 	}
 	public long getShares() {
 		return shares;

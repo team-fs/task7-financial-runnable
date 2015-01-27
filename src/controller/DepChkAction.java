@@ -6,14 +6,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import databeans.CustomerBean;
+import databeans.EmployeeBean;
+import databeans.PositionBean;
+import databeans.PositionOfUser;
 import databeans.TransactionBean;
+import model.CustomerDAO;
+import model.FundDAO;
 import model.Model;
+import model.PositionDAO;
 import model.TransactionDAO;
 import formbeans.DepositCheckForm;
 import formbeans.RequestCheckForm;
@@ -21,9 +28,15 @@ import formbeans.RequestCheckForm;
 public class DepChkAction extends Action {
 	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
 	private TransactionDAO transactionDAO;
+	private FundDAO fundDAO;
+	private PositionDAO positionDAO;
+	private CustomerDAO cusDAO;
 	
 	public DepChkAction(Model model) {
 		transactionDAO = model.getTransactionDAO();
+		fundDAO = model.getFundDAO();
+		positionDAO = model.getPositionDAO();
+		cusDAO = model.getCustomerDAO();
 	}
 	
 	public String getName() {
@@ -35,35 +48,17 @@ public class DepChkAction extends Action {
 		request.setAttribute("errors", errors);
 		
 		try {
-			
-			CustomerBean customer = (CustomerBean) request.getSession(false).getAttribute("customer");
-			DepositCheckForm form = formBeanFactory.create(request);
-			request.setAttribute("form", form);
-			
-			errors.addAll(form.getValidationErrors());
-	        if (errors.size() > 0) return "error.jsp";
-			
-			TransactionBean transaction = new TransactionBean();
-			transaction.setCustomer_id(customer.getCustomerId());
-			transaction.setAmount(Long.parseLong(fixBadChars(form.getAmount())));
-			transaction.setTransaction_type('D');
-			
-			transactionDAO.create(transaction);
-			customer.setCash(customer.getCash() - transaction.getAmount());
-					
-			errors.addAll(form.getValidationErrors());
-			if (errors.size() > 0) return "error.jsp";
-		
-			request.getSession(true).setAttribute("customer", customer);
-			
+			EmployeeBean right = (EmployeeBean) request.getSession(false).getAttribute("employee");
+			HttpSession session = request.getSession();
+			TransactionBean[] checks = transactionDAO.getPendingCheck();
+			request.setAttribute("customerList", cusDAO.getCustomer());
+
 			return "depositCheck.jsp";
-		} catch(RollbackException e) {
-			errors.add(e.getMessage());
-			return "depositCheck.jsp";
-		} catch(FormBeanException e) {
-			errors.add(e.getMessage());
-			return "depositCheck.jsp";
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return "depositCheck.jsp" ;
 	}
 	
     private String fixBadChars(String s) {

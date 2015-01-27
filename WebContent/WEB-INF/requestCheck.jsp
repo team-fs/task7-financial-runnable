@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
-			<h3>Deposit a Check</h3>
+			<h3>Request a Check</h3>
 			<jsp:include page="error-list.jsp" />
 			<form method="post">
 				<input type="hidden" name="redirect" value="${redirect}" />
@@ -13,7 +13,7 @@
 					<thead>
 						<tr>
 							<td>User Name:</td>
-							<td>${username}</td>
+							<td>${customer.username}</td>
 						</tr>
 						<tr>
 							<td>Full Name:</td>
