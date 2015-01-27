@@ -137,4 +137,35 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+
+	public void executeCheck(int transaction_id, Date d) throws RollbackException {
+		try {
+        	Transaction.begin();
+			TransactionBean tran = read(transaction_id);	
+			if (tran == null) {
+				throw new RollbackException("Transaction "+transaction_id+" no longer exists");
+			}	
+			tran.setExecute_date(d);;
+			update(tran);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}		
+	}
+
+	public void executeSell(int transaction_id, Date d, long price) throws RollbackException {
+		try {
+        	Transaction.begin();
+			TransactionBean tran = read(transaction_id);	
+			if (tran == null) {
+				throw new RollbackException("Transaction "+transaction_id+" no longer exists");
+			}	
+			tran.setExecute_date(d);;
+			tran.setAmount(tran.getShares()*price);
+			update(tran);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
+		}
+	}
 }
