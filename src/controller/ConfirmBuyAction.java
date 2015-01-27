@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class ConfirmBuyAction extends Action {
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
+		
+		DecimalFormat df = new DecimalFormat("#,##0.00");
 		
 		try {
 			CustomerBean customer = (CustomerBean) request.getSession(false).getAttribute("customer");
@@ -83,9 +86,15 @@ public class ConfirmBuyAction extends Action {
 				pous[i] = pou;
 				pendingAmount += tran.getAmount();
 			}
+			String pendingAmountFormat = df.format(pendingAmount);
+			String availableAmountFormat = df.format(customer.getCash() - pendingAmount);
+			
 			session.setAttribute("mFundList", pous);
-			session.setAttribute("pendingAmount", pendingAmount);
-			session.setAttribute("availableAmount", customer.getCash()-pendingAmount);
+			session.setAttribute("pendingAmount",pendingAmountFormat);
+			session.setAttribute("availableAmount", availableAmountFormat);
+			
+//			session.setAttribute("pendingAmount", pendingAmount);
+//			session.setAttribute("availableAmount", customer.getCash()-pendingAmount);
 			return "buyFund.jsp";
 		} catch(FormBeanException e) {
 			errors.add(e.getMessage());

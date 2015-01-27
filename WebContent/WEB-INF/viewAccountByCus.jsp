@@ -1,6 +1,7 @@
 <jsp:include page="template-top.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 		
 		
@@ -68,7 +69,7 @@
 							Cash Balance:
 						</td>
 						<td>
-							${customer.cash} 
+							$<fmt:formatNumber value="${customer.cash }" type="currency" pattern="#,##0.00" />
 						</td>
 						
 					</tr>
