@@ -213,7 +213,7 @@
 					</div>
 					<div id="panel-element-236923" class="panel-collapse">
 						<div class="panel-body">
-							<a  href="#">Change Password</a>						
+							<a  href="empChangePwd.do">Change Password</a>						
 						</div>
 						<div class="panel-body">
 							<a  href="logout.do">Logout</a>						

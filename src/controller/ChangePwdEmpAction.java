@@ -5,26 +5,26 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import model.CustomerDAO;
+import model.EmployeeDAO;
 import model.Model;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import databeans.CustomerBean;
+import databeans.EmployeeBean;
 import formbeans.ChangePwdForm;
 
-public class ChangePwdAction extends Action {
+public class ChangePwdEmpAction extends Action {
 	private FormBeanFactory<ChangePwdForm> formBeanFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
-	private CustomerDAO customerDAO;
+	private EmployeeDAO employeeDAO;
 	
-	public ChangePwdAction(Model model) {
-		customerDAO = model.getCustomerDAO();
+	public ChangePwdEmpAction(Model model) {
+		employeeDAO = model.getEmployeeDAO();
 	}
 	
 	public String getName() {
-		return "cusChangePwd.do";
+		return "empChangePwd.do";
 	}
 	
 	public String perform(HttpServletRequest request) {
@@ -35,25 +35,24 @@ public class ChangePwdAction extends Action {
 		request.setAttribute("success", success);
 		
 		try {
-			CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
+			EmployeeBean employee = (EmployeeBean) request.getSession().getAttribute("employee");
 			ChangePwdForm form = formBeanFactory.create(request);
 			request.setAttribute("form", form);
 			
 			if(!form.isPresent()) {
-				return "cusChangePwd.jsp";
+				return "empChangePwd.jsp";
 			}
 			
 			errors.addAll(form.getValidationErrors());
 			if(errors.size()>0) {
-				return "cusChangePwd.jsp";
+				return "empChangePwd.jsp";
 			}
 			
-			customer.setPassword(form.getNewPassword());
-			customerDAO.update(customer);
-			success.add("You have succesfully changed password");
-		
-			return "cusChangePwd.jsp";
-		} catch (RollbackException e) {
+			employee.setPassword(form.getNewPassword());
+			employeeDAO.update(employee);
+			success.add("You have successfully changed password");
+			return "empChangePwd.jsp";
+		} catch(RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
 		} catch(FormBeanException e) {

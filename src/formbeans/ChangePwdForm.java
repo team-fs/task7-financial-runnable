@@ -28,7 +28,7 @@ public class ChangePwdForm extends FormBean {
 		}
 		
 		if (confirmPassword == null || confirmPassword.length() == 0) {
-			errors.add("Confirm Pwd is required");
+			errors.add("Confirm Password is required");
 		}
 		
 		if (errors.size() > 0) {
