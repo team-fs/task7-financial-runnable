@@ -31,6 +31,9 @@ public class ChangePwdAction extends Action {
 		List<String> errors = new ArrayList<String>();
 		request.setAttribute("errors", errors);
 		
+		List<String> success = new ArrayList<String>();
+		request.setAttribute("success", success);
+		
 		try {
 			CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
 			ChangePwdForm form = formBeanFactory.create(request);
@@ -63,10 +66,9 @@ public class ChangePwdAction extends Action {
 			
 			customer.setPassword(form.getNewPassword());
 			customerDAO.update(customer);
-			
-			request.setAttribute("message", "Password was changed successfully");
-		//	return "cusChangePwd.jsp";
-			return "success.jsp";
+			success.add("You have succesfully changed password");
+		
+			return "cusChangePwd.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
