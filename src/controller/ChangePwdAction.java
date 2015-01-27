@@ -64,8 +64,9 @@ public class ChangePwdAction extends Action {
 			customer.setPassword(form.getNewPassword());
 			customerDAO.update(customer);
 			
-			request.setAttribute("msg", "Password was changed successfully");
-			return "cusChangePwd.jsp";
+			request.setAttribute("message", "Password was changed successfully");
+		//	return "cusChangePwd.jsp";
+			return "success.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
