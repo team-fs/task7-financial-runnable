@@ -188,7 +188,7 @@
 							<a  href="createFund.do">Create Fund </a>						
 						</div>
 						<div class="panel-body">
-							<a  href="#">Transition Day </a>						
+							<a  href="transition.do">Transition Day </a>						
 						</div>
 					</div>
 					<div class="panel-heading">
