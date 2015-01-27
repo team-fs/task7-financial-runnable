@@ -40,6 +40,7 @@ public class EmpLoginAction extends Action {
 			if (session.getAttribute("employee") != null)
 			return "viewByEmployee.do";
 			
+			
 			CusLoginForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			
@@ -73,7 +74,8 @@ public class EmpLoginAction extends Action {
 			
 			session.setAttribute("employee",employee);
 			System.out.print("good!");
-			return "viewAccountByEmp.jsp";
+			//return "viewAccountByEmp.jsp";
+			return "viewByEmployee.do";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
