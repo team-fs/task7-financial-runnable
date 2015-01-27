@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
@@ -21,6 +23,13 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			throws RollbackException {
 		TransactionBean[] transactions = match(MatchArg.equals("customer_id",
 				customerId));
+		return transactions;
+
+	}
+	public TransactionBean[] getPendingTransactions()
+			throws RollbackException {
+		TransactionBean[] transactions = match(MatchArg.equals("execute_date", null));
+		Arrays.sort(transactions);
 		return transactions;
 
 	}

@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.genericdao.PrimaryKey;
 
 @PrimaryKey("transaction_id")
-public class TransactionBean {
+public class TransactionBean implements Comparable<TransactionBean>{
 	private int transaction_id;
 	private int customer_id;
     private int fund_id;
@@ -54,6 +54,11 @@ public class TransactionBean {
 	}
 	public void setAmount(long amount) {
 		this.amount = amount;
+	}
+	@Override
+	public int compareTo(TransactionBean o) {
+		// TODO Auto-generated method stub
+		return Integer.compare(transaction_id, o.transaction_id);
 	}
     
 }

@@ -10,6 +10,15 @@ public class PriceBean implements Comparable<PriceBean>{
 	int fund_id;
 	Date price_date;
 	long price;
+	public PriceBean(int fund_id, Date price_date, long price) {
+		super();
+		this.fund_id = fund_id;
+		this.price_date = price_date;
+		this.price = price;
+	}
+	public PriceBean() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getFund_id() {
 		return fund_id;
 	}
@@ -33,4 +42,5 @@ public class PriceBean implements Comparable<PriceBean>{
 		// TODO Auto-generated method stub
 		return price_date.compareTo(o.price_date);
 	}
+	
 }
