@@ -55,6 +55,7 @@ public class Controller extends HttpServlet {
 		Action.add(new EmpRegisterAction(model));
 		Action.add(new CusRegisterAction(model));
 		Action.add(new ViewByEmployeeAction(model));
+		Action.add(new ViewByCustomerAction(model));
 		Action.add(new TransitionAction(model));
 		
 		

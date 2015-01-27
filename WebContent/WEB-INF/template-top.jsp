@@ -143,7 +143,7 @@
 					</div>
 					<div id="panel-element-236921" class="panel-collapse">
 						<div class="panel-body">
-							<a  href="cuslogin.do">View Account</a>						
+							<a  href="viewCustomer.do">View Account</a>						
 						</div>
 						<div class="panel-body">
 							<a  href="cusChangePwd.do">Change Password</a>						
