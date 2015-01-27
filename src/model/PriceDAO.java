@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
@@ -50,5 +51,15 @@ public class PriceDAO extends GenericDAO<PriceBean> {
 		}
 		else return 0;
 	}
+	public Date getLastTransactionDay() throws RollbackException {
+
+		PriceBean[] prices = match();
+		Arrays.sort(prices);
+		if (prices.length>0){
+		return prices[prices.length - 1].getPrice_date();
+		}
+		else return null;
+	}
+
 
 }

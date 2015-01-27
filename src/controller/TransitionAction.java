@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,11 +21,13 @@ import org.mybeans.form.FormBeanFactory;
 import databeans.CustomFundBean;
 import databeans.CustomerBean;
 import databeans.FundBean;
+import databeans.PositionBean;
 import databeans.PriceBean;
 import databeans.RawPriceBean;
 import databeans.TransactionBean;
 import model.CustomerDAO;
 import model.Model;
+import model.PositionDAO;
 import model.PriceDAO;
 import model.TransactionDAO;
 import model.FundDAO;
@@ -34,10 +38,16 @@ import formbeans.CusRegisterForm;
 public class TransitionAction extends Action {
 	private FundDAO fundDAO;
 	private PriceDAO priceDAO;
+	private TransactionDAO transactionDAO;
+	private CustomerDAO customerDAO;
+	private PositionDAO positionDAO;
 
 	public TransitionAction(Model model) {
 		fundDAO = model.getFundDAO();
 		priceDAO = model.getPriceDAO();
+		transactionDAO = model.getTransactionDAO();
+		customerDAO = model.getCustomerDAO();
+		positionDAO = model.getPositionDAO();
 	}
 
 	public String getName() {
@@ -76,13 +86,26 @@ public class TransitionAction extends Action {
 			Date d = format.parse((String)request.getParameter("date"));
 			int count = Integer.parseInt((String) request.getParameter("count"));
 			PriceBean price;
+			Map<Integer, Long> priceMap = new HashMap<Integer, Long>();
+
 			for (int i=0; i<count; i++){
 				price = new PriceBean(rawPrices[i].getFund_id(), d, Long.parseLong(rawPrices[i].getPrice()));
 				priceDAO.create(price);
+				priceMap.put(rawPrices[i].getFund_id(), Long.parseLong(rawPrices[i].getPrice()));
+			}
+			
+			TransactionBean[] pendingTrans = transactionDAO.getPendingTransactions();
+			for (TransactionBean tran : pendingTrans) {
+				execute (tran, d, (long) priceMap.get(tran.getFund_id()));
 			}
 			success.add("You have successfully created prices for transaction day " + (String)request.getParameter("date"));
+			for (int i = 0; i < cfbs.length; i++) {
+				CustomFundBean cfb = new CustomFundBean(funds[i]);
+				cfb.setLastPrice(priceDAO.getLatestPrice(funds[i].getId()));
+				cfbs[i] = cfb;
+			}
+			session.setAttribute("fundList", cfbs);
 			
-
 			return "transition.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
@@ -90,6 +113,18 @@ public class TransitionAction extends Action {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			return "transition.jsp";
+		}
+	}
+
+	private void execute(TransactionBean tran, Date d, long price) throws RollbackException {
+		// TODO Auto-generated method stub
+		switch (tran.getTransaction_type()){
+		case 0:{
+			customerDAO.updateCash(tran.getCustomer_id(), 0-tran.getAmount());
+			transactionDAO.executeBuy(tran.getTransaction_id(), d, price);
+			positionDAO.updatePosition(new PositionBean(tran.getCustomer_id(), tran.getFund_id(), tran.getAmount()/price));
+		}
+		
 		}
 	}
 

@@ -9,6 +9,17 @@ public class PositionBean {
 	private int fund_id;
 	private long shares;
 
+	public PositionBean(int customer_id, int fund_id, long shares) {
+		super();
+		this.customer_id = customer_id;
+		this.fund_id = fund_id;
+		this.shares = shares;
+	}
+	
+	public PositionBean() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getCustomer_id() {
 		return customer_id;
 	}

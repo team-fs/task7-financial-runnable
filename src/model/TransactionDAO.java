@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
@@ -9,6 +10,7 @@ import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
+import databeans.CustomerBean;
 import databeans.PositionBean;
 import databeans.TransactionBean;
 
@@ -83,6 +85,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 
 		return true;
 	}
+	
 
 	public void createBuyTransaction(TransactionBean transaction) {
 		// TODO Auto-generated method stub
@@ -116,6 +119,22 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		} finally {
 			if (Transaction.isActive())
 				Transaction.rollback();
+		}
+	}
+
+	public void executeBuy(int transaction_id, Date d, long price) throws RollbackException {
+		try {
+        	Transaction.begin();
+			TransactionBean tran = read(transaction_id);	
+			if (tran == null) {
+				throw new RollbackException("Transaction "+transaction_id+" no longer exists");
+			}	
+			tran.setExecute_date(d);;
+			tran.setShares(tran.getAmount()/price);
+			update(tran);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
 }
