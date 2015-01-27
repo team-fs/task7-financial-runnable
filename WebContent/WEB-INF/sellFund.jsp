@@ -3,6 +3,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <h2>Sell Fund</h2>
+<h4 class="text-primary">Total Balance: ${customer.cash }</h4>
+<h4 class="text-primary">Pending Balance: ${pendingAmount }</h4>
+<h4 class="text-primary">Available Balance: ${availableAmount }</h4>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
