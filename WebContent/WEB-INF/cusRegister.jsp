@@ -144,7 +144,7 @@
 	</div>
 	<div class="col-sm-offset-2 col-sm-10">
 		 <button type="button" class="btn btn-default" >Cancel</button> 
-		 <input type="submit" class="btn btn-success" name="button" value="Login"> 
+		 <input type="submit" class="btn btn-success" name="button" value="Create"> 
 	</div>
 				
 </form>		
