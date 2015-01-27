@@ -55,6 +55,7 @@ public class Controller extends HttpServlet {
 		Action.add(new EmpRegisterAction(model));
 		Action.add(new CusRegisterAction(model));
 		Action.add(new ViewByEmployeeAction(model));
+		Action.add(new TransitionAction(model));
 		
 		
 		CustomerDAO customerDAO = model.getCustomerDAO();
@@ -91,7 +92,7 @@ public class Controller extends HttpServlet {
 			
 			for (int i=1; i<11; i++){
 			fund.setName("Fund No." + i);
-			fund.setSymbol("Fund No." + i + " is a very good fund");
+			fund.setSymbol("VODLN");
 			
 			fundDAO.create(fund);
 			}
